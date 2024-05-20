@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Donation Information</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      text-align: center;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #ed4300;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background-color: #c24b0b;
+    }
+    .error-message {
+      color: red;
+      text-align: center;
+    }
+    .back-button {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .back-button a {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #808080;
+      color: white;
+      border-radius: 5px;
+    }
+    .back-button a:hover {
+      background-color: #595959;
+    }
+
+    /* تصميم حقل التاريخ والوقت */
+    input[type="datetime-local"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  
+    <form action="/donation" method="post">
+      
+    </form>
+
+    <h1>Donation appointment information</h1>
+    {% if error %}
+      <p class="error-message">{{ error }}</p>
+    {% else %}
+      <div class="donor-info">
+      
+
+        {% if donor %}
+        
+        <p><B>Name:</B> {{ donor[1] }} {{ donor[2] }} {{ donor[3] }}</p>
+        <p><B>Phone Number:</B> {{ donor[8] }}</p>
+        <p><B>Blood Type:</B> {{ donor[11] }}</p>
+        <p><B>Hospital Name:</B> {{ donor[7] }}</p>
+        <p><B>Appointment Date and Time:</B> {{ donor[13] }}</p>
+    {% else %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+
+
+
+
+<!-- Buttons for canceling or modifying donation requests -->
+<div class="donation-actions">
+  <form id="cancelForm" action="/cancel_donation" method="post" onsubmit="return confirmCancellation()">
+    <input type="hidden" name="ID_number" value="{{ donor[0] }}"> <!-- Hidden field to pass donor ID -->
+    <button type="submit">Delete Donation Appointment</button>
+  </form>
+  <br>
+  
+  <!-- Add a form for modifying donation -->
+  <form action="/modify_donation" method="post" onsubmit="return confirmModification()">
+    <input type="hidden" name="ID_number" value="{{ donor[0] }}"> <!-- Hidden field to pass donor ID -->
+    
+    <label for="new_appointment_datetime">New Appointment Date and Time:</label><br>
+<input type="datetime-local" id="new_appointment_datetime" name="new_appointment_datetime" required><br><br>
+
+    <button type="submit">Modify Date and Time Donation</button>
+  </form>
+</div>
+    {% endif %}
+
+    <div class="back-button">
+      <a href="/home">Back to Home</a>
+    </div>
+  </div>
+
+  
+  <script>
+    function confirmCancellation() {
+      // عرض نافذة تأكيد للمستخدم
+      var confirmation = confirm("Are you sure you want to cancel this donation?");
+      
+      // إرجاع true إذا قام المستخدم بالتأكيد على الإلغاء، وإلا فإنه سيتم إلغاء الإرسال
+      if (confirmation) {
+        // إظهار رسالة إلغاء الموعد
+        var cancelMessage = document.createElement('p');
+        cancelMessage.textContent = 'Donation appointment has been canceled.';
+        document.getElementById('cancelForm').parentNode.appendChild(cancelMessage);
+      }
+      
+      return confirmation;
+    }
+  </script>
+  
+  <script>
+    function confirmModification() {
+      // عرض نافذة تأكيد للمستخدم
+      var confirmation = confirm("Are you sure you want to modify the appointment date and time?");
+      
+      // إرجاع true إذا قام المستخدم بالتأكيد على التعديل، وإلا فإنه سيتم إلغاء الإرسال
+      return confirmation;
+    }
+  </script>
+
+
+
+
+<script>
+  // Get the input element
+  var appointmentDatetimeInput = document.getElementById('new_appointment_datetime');
+
+  // Set the minimum date to tomorrow
+  var today = new Date();
+  var tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var minDate = tomorrow.toISOString().slice(0, 16); // يجب قص التوقيت من السلسلة ليتم تحديد اليوم فقط
+  appointmentDatetimeInput.setAttribute('min', minDate);
+
+  // Add event listener to disable selection of Friday and Saturday
+  appointmentDatetimeInput.addEventListener('input', function() {
+      var selectedDate = new Date(appointmentDatetimeInput.value);
+      var today = new Date();
+      
+      // Check if the selected date is today or before today
+      if (selectedDate <= today) {
+          // Disable the input
+          appointmentDatetimeInput.value = '';
+          appointmentDatetimeInput.setCustomValidity('You cannot book an appointment for today or before today.');
+      } else {
+          // Enable the input
+          appointmentDatetimeInput.setCustomValidity('');
+      }
+  });
+</script>
+
+<script>
+  // Get the input element
+  var appointmentDatetimeInput = document.getElementById('new_appointment_datetime');
+
+  // Set the minimum and maximum time
+  appointmentDatetimeInput.setAttribute('min', '07:00');
+  appointmentDatetimeInput.setAttribute('max', '15:30');
+
+  // Add event listener to disable selection of Friday and Saturday
+  appointmentDatetimeInput.addEventListener('input', function() {
+      var selectedDate = new Date(appointmentDatetimeInput.value);
+      var selectedTime = selectedDate.getHours() * 60 + selectedDate.getMinutes();
+
+      // Calculate the time in minutes for 7:00 AM and 3:30 PM
+      var startTime = 7 * 60;
+      var endTime = 15 * 60 + 30;
+
+      // Check if the selected time is within the allowed range
+      if (selectedTime < startTime || selectedTime > endTime) {
+          // Disable the input
+          appointmentDatetimeInput.value = '';
+          appointmentDatetimeInput.setCustomValidity('Appointments are only available from 7:00 AM to 3:30 PM. Closed at Friday and Saturday.');
+      } else {
+          // Enable the input
+          appointmentDatetimeInput.setCustomValidity('');
+      }
+  });
+</script>
+
+</body>
+</html>

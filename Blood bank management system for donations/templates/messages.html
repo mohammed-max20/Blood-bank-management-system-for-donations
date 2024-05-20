@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js" integrity="sha512-73YRGwqLU6yDhe9PLvObcV7IdPdHuNCVDd26UQgMXxEHm6LgWZ27gF+G3FdmN44xFYbOWtAcmfWm9etkLw/Xew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--  Inbox  -->
+    <title>Messages </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Blood_type</th>
+            <th> Name</th>
+            <th>Phone Number</th>
+            <th>City</th>
+            <th>Hospital name </th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient[11] }}</td>
+            <td>{{ patient[1] }} {{ patient[2] }} {{ patient[3] }}</td>
+            <td>{{ patient[8] }}</td>
+            <td>{{ patient[5] }}</td>
+            <td>{{ patient[7] }}</td>
+        </tr>
+        {% endfor %}
+    
+    <div class="footer">
+        <a href="{{ url_for('home') }}" style="color: #fff; text-decoration: none;">Go to home</a>
+    </div>
+    {% if notification %}
+    <div>{{ notification }}</div>
+{% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title> Car blood donation request </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            padding: 45px;
+            background-image: url('static/bb.png'); /* تعيين الصورة كخلفية */
+            background-size: cover; /* تغطية الصفحة بالكامل */
+            background-position: center; /* توسيط الصورة */
+            background-repeat: no-repeat;
+        }
+
+        form {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            float: left;
+            
+            
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-position: right 10px top 50%;
+            background-size: 24px;
+            background-repeat: no-repeat;
+            padding-right: 30px;
+        }
+
+      
+
+
+
+
+        /* Style the input field */
+        .custom-time-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 200px; /* Adjust width as needed */
+            box-sizing: border-box;
+        }
+
+
+         /* Hide the default arrow */
+         input[type="time"]::-webkit-calendar-picker-indicator {
+            display: none;
+        }
+
+        /* Style the input field */
+        input[type="time"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 200px; /* Adjust width as needed */
+            box-sizing: border-box;
+        }
+
+
+    
+/*   اضافة  */
+.form-field {
+    padding: 10px 0;
+}
+
+.form-field label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+
+.form-field input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+/* تحسينات عامة لنموذج الاستمارة */
+form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    opacity: 0.8; /* قيمة الشفافية */
+}
+
+form table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+form table td {
+    padding: 10px;
+}
+
+
+
+
+
+td {
+    padding: 10px; /* تباعد الحواف الداخلية للخلية */
+}
+
+label {
+    font-weight: bold; /* جعل النص غامقًا */
+    display: block; /* لجعل العنصر كامل العرض */
+}
+
+select {
+    padding: 8px; /* حجم الهوامش داخل الحقل */
+    border: 1px solid #ccc; /* لون وسمك الحدود */
+    border-radius: 5px; /* زوايا مدورة */
+    font-size: 16px; /* حجم الخط */
+    width: 200px; /* عرض الحقل */
+    box-sizing: border-box; /* تضمين حجم الحدود والتباعد في العرض الإجمالي */
+    margin-top: 5px; /* تباعد من الأعلى */
+}
+
+
+input[type="date"]
+ {
+    width: calc(100% - 30px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+select[id="request_time"]
+ {
+    width: calc(100% - 30px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+
+
+/* for running */
+#running {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    transition: .5s;
+}
+
+#running:hover span {
+    position: absolute;
+    display: block;
+}
+
+#running:hover span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, crimson);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+#running:hover span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, crimson);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+#running:hover span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, crimson);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+#running:hover span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, crimson);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+#gender-label,
+#gender {
+    display: none;
+}
+
+#bloodType-label,
+#bloodType {
+    display: none;
+}
+
+#city {
+  display: none;
+}
+    </style>
+</head>
+<body>
+
+    
+    <form action="/submit_blood_car_request" method="POST">
+        <h1 style="text-align: center;">Blood Car Request</h1>
+        <h5 style="text-align: center;">Request a blood donation car</h5>
+        
+
+            <table>
+                <tr>
+                    <td>
+                        <label for="request_date">Request Date:</label>
+                        <input type="date" id="request_date" name="request_date" required><br>
+                        <input type="hidden" id="full_name" name="full_name" value="{{ session['first_name'] }} {{ session['middle_name'] }} {{ session['last_name'] }}">
+                        <input type="hidden" id="id_number" name="id" value="{{ session['id_number'] }}">
+                    </td>
+                    <td>
+                        <label for="request_time">Request Time:</label>
+                        <select id="request_time" name="request_time" required></select><br>
+                        <input type="hidden" id="contact_number" name="contact_number" value="{{ session['phone'] }}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="gender">Age:</label>
+                        <select id="gender" name="gender" required>
+            <option value="{{ session['gender'] }}">{{ session['gender'] }}</option>
+        </select>
+                        <input type="number" id="age" name="age" min="18" max="65" required><br>
+                    </td>
+                    <td>
+                        <label for="blood_type">Weight:</label>
+                        <select id="bloodType" name="bloodType" required>
+                <option value="{{ session['blood_type'] }}">{{ session['blood_type'] }}</option>
+              </select>
+                        <input type="number" id="weight" name="weight" min="50" required><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="hidden" id="city" name="city" value="{{ session['city'] }}" required>
+                        <label for="neighborhood_name">Neighborhood Name:</label>
+                        <input type="text" id="neighborhood_name" name="neighborhood_name"><br>
+
+                    </td>
+                    <td>
+                        <input type="hidden" id="location" name="location" readonly required>
+                        <label for="street_name">Street Name:</label>
+                        <input type="text" id="street_name" name="street_name"><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="address_description">Address Description:</label>
+                        <textarea id="address_description" name="address_description"></textarea><br>
+                    </td>
+                    <td>
+                        <label for="health_conditions">Health Conditions:</label>
+                        <textarea id="health_conditions" name="health_conditions"></textarea><br>
+                    </td>
+                </tr>
+            </table>
+            {% if warning_message %}
+    <div style="color: red; margin-bottom: 20px;">
+        {{ warning_message }}
+    </div>
+{% endif %}
+            <button href="#" id="running" style="font-size: 16px; padding: 12px 24px; background-color: #bdd3d4; color: rgb(21, 14, 14); border: none; border-radius: 5px; cursor: pointer; display: block; margin: 0 auto; box-shadow: 0 32px 32px rgba(0.7, 0.7, 0.7, 0.7); transition: 7.3s;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </button>
+            
+            
+    </form>
+   
+    
+
+
+    <script>
+        // Get user's location
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Display user's location
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var locationInput = document.getElementById('location');
+            locationInput.value = latitude + ", " + longitude;
+        }
+
+        // Call the getLocation function to get the user's location
+        getLocation();
+    </script>
+
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+    
+    // Display user's location details
+function showPosition(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    // استخدام OpenStreetMap Nominatim API للحصول على تفاصيل الموقع
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // للتحقق من البيانات المسترجعة
+
+        var neighborhood = data.address.suburb || data.address.neighbourhood;
+        var street = data.address.road || data.address.street;
+
+        document.getElementById('neighborhood_name').value = neighborhood || 'Not Available';
+        document.getElementById('street_name').value = street || 'Not Available';
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+    
+    // Function to handle errors
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+    
+    // استدعاء الدالة للحصول على موقع المستخدم
+    getLocation();
+    </script>
+
+
+
+
+
+<script>
+    // Function to populate the dropdown menu with time options from 8:00 AM to 8:00 PM
+    // and to populate the cities dropdown
+    function populateOptions() {
+        // Populate time options
+        var selectTime = document.getElementById("request_time");
+        var hours = 8; // Starting hour
+        for (var i = 0; i < 24; i++) {
+            var optionTime = document.createElement("option");
+            var suffix = hours >= 12 ? " PM" : " AM";
+            var displayHours = hours % 12 || 12; // Convert to 12-hour format
+            optionTime.text = displayHours + ":00" + suffix;
+            optionTime.value = ("0" + hours).slice(-2) + ":00"; // Format hour with leading zero
+            selectTime.add(optionTime);
+            if (hours === 20) {
+                break; // Stop at 8:00 PM
+            }
+            hours = (hours + 1) % 24; // Increment hours (cyclic from 0 to 23)
+        }
+
+        
+    }
+    // Call the populateOptions function when the page loads
+    window.onload = function() {
+        populateOptions();
+    };
+</script>
+
+
+<script>
+    // تاريخ اليوم
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; // يناير يعتبر 0
+    var yyyy = today.getFullYear();
+    
+    // إعادة ترتيب الشهر واليوم إذا كانا أقل من 10
+    if(dd < 10){
+        dd = '0' + dd;
+    }
+    if(mm < 10){
+        mm = '0' + mm;
+    }
+    
+    // تاريخ اليوم كنص بتنسيق yyyy-mm-dd
+    var todayFormatted = yyyy + '-' + mm + '-' + dd;
+
+    // تعيين تاريخ البداية والنهاية لحقل تاريخ الطلب
+    document.getElementById("request_date").setAttribute("min", "2024-03-20");
+    document.getElementById("request_date").setAttribute("max", "2040-12-31");
+</script>
+
+</body>
+</html>

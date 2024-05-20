@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('OIP.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 160vh; 
+}
+
+.container {
+    width: 500px;
+    margin: 0 auto; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 5px; 
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none; 
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.9); /* خلقية شفافه  */
+}
+
+input[type="date"] {
+    width: calc(100% - 1px); 
+}
+
+button {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none; 
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.9); 
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+        .signin-link {
+            color: blue; 
+            text-decoration: underline; 
+        }
+    
+
+        .required {
+            color: red; 
+            margin-left: 10px; 
+            text-align: right;
+        }
+        
+
+
+
+        

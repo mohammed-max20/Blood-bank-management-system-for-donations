@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+
+</head>
+<body>
+  <style>
+    .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
+</style>
+  <title>Home</title>
+
+  <main>
+    <header>
+               <h1>Welcome to EasyBlood</h1>
+
+        <!--<h1>Welcome to Blood donation</h1>-->
+        <nav>
+          <a href="{{ url_for('Financial_prize', lang=selectedLang) }}" >Financial prize</a>
+          <a href="{{ url_for('blood_donor_experience', lang=selectedLang) }}" >Blood donors experience</a>
+            <a href="{{ url_for('blood_type', lang=selectedLang) }}" >blood types</a>
+            
+
+            <a href="#contact" >Contact</a>
+        </nav> 
+
+        {% if notification %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ notification }}
+        </div>
+        {% endif %}
+
+        <p>Your life-saving journey starts here.</p>  
+        <br>                
+        <a href="https://www.moh.gov.sa/awarenessplateform/VariousTopics/Pages/BloodDonation.aspx" class="cta-button">Learn More</a>
+        
+        <div class="profile-dropdown">
+          <div style="position: fixed; top: 0; left: 0;">
+
+      <div onclick="toggle()" class="profile-dropdown-btn">
+        <div class="profile-img">
+          <i class="fa-solid fa-circle" style="font-size: 24px; text-align: center; display: block; margin-bottom: 6px; margin-right: -40px;">{{ username }}</i>
+        </div>
+
+   
+        
+      </div>
+
+      <ul class="profile-dropdown-list">
+        <li class="profile-dropdown-list-item">
+          <a href="{{ url_for('edit_profile_page') }}">
+            <i class="fa-regular fa-user"></i>
+            Edit Profile
+          </a>
+        </li>
+
+        <li class="profile-dropdown-list-item">
+          <a href="{{ url_for('messages_page') }}">
+            <i class="fa-regular fa-envelope"></i>
+            Inbox 
+          </a>
+        </li>
+
+        <li class="profile-dropdown-list-item">
+          <a href="{{ url_for('donation') }}">
+            <i class="fa-regular fa-envelope"></i>
+            My appointments
+          </a>
+        </li>
+
+        <!-- <li class="profile-dropdown-list-item">
+          <a href="#">
+            <i class="fa-regular fa-circle-question"></i>
+            Help & Support
+          </a>
+        </li>-->
+        <hr/>
+
+        <li class="profile-dropdown-list-item">
+          <a href="{{ url_for('main_page') }}">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Log out
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+    
+
+  <!-- About Section -->
+  <div class="ram-container ram-padding-32 ram-center">  
+    <div style="width: 80%; margin: auto;">
+      
+        <img src="/static/blood_drop.gif" alt="Me" class="ram-image" style="display:block;margin:auto" width="1000" height="533">
+        <div class="ram-padding-32">
+            <h4><b>Our App</b></h4>
+            <h6><i>We want to make blood donation easy and raise awareness of the importance of this humanitarian act. We believe that every drop of blood is an opportunity to save a life, and this is what we aim to do by creating a platform that combines ease and efficiency to make blood donation accessible and useful for everyone.
+            </i></h6>
+        </div>
+    </div>
+</div>
+</header>
+</main>
+ 
+
+
+
+<div class="grid-container">
+  <div class="header">
+  
+  </div>
+  
+  <div class="left" style="background-color:#ffffff;" onclick="redirectToPage('patient')">
+    <img src="/static/pat.png" alt="حالة للمحتاج">
+</div>
+<div class="middle" style="background-color:#ffffff;" onclick="redirectToPage('blood_car_donor')">
+    <img src="/static/stock--transformed.jpeg" alt="طلب سيارة للتبرع بالدم">
+</div>
+<div class="right" style="background-color:#ffffff;" onclick="redirectToPage('donor')">
+    <img src="/static/giving-b.gif" alt="كيف يمكنني التبرع؟">
+</div>
+</div>
+<footer class="footer" >
+  <div class="waves">
+      <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave2"></div>
+      <div class="wave" id="wave3"></div>
+      <div class="wave" id="wave4"></div>
+  </div>
+  <div class="footer-info contact-info">
+      <h2>Contact Info</h2>
+      <p><i class="fa fa-map-marker" onclick="openHospitalLocation()" style="cursor: pointer;"></i> <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">Riyadh, KSA</a></p>
+            <p><a href="tel:+966552904804"><i class="fa fa-phone"></i></a><a href="tel:+966552904804">+966 552904804</a></p>
+            <p><a href="tel:+966112394839"><i class="fa fa-phone"></i></a><a href="tel:+966112394839">0112394839</a></p>
+            <a href="mailto:easyblood2024@gmail.com"><i class="fa fa-envelope"></i>easyblood2024@gmail.com</a>
+  </div>
+
+  <div class="amjj-container amjj-padding-64" id="contact">
+      <h2> Info about</h2>
+      <p><a href="https://www.moh.gov.sa/Ministry/About/Pages/ContactUS.aspx" target="_blank" style="color: white; text-decoration: none; display: inline;">Ministry of Health portal</a></p>
+      <a href="{{ url_for('policies') }}" style="text-decoration: none; color: white;">Usage policies</a>
+    </div>
+
+  <div class="footer-info like-us">
+      <h2>Like Us</h2>
+            <a href="https://api.whatsapp.com/send?phone=966552904804" target="_blank"><i class="RAM-xlarge fa fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/easyblood2024/" target="_blank"><i class="RAM-xlarge fa fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61558652523558" target="_blank"><i class="RAM-xlarge fa fa-facebook-official"></i></a>
+            <a href="https://twitter.com/easyblood2024" target="_blank"><i class="RAM-xlarge fa fa-twitter"></i></a>
+  </div>
+  
+</footer>
+
+
+<script>
+  function redirectToPage(page) {
+      window.location.href = page;
+  }
+</script>
+
+
+<script>
+  function openHospitalLocation() {
+      var url = 'https://www.google.com/maps/search/?api=1&query=24.7136,46.6753'; 
+      window.open(url, '_blank');
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+      const socialIcons = document.querySelectorAll('.footer .fa');
+
+      socialIcons.forEach(icon => {
+          icon.addEventListener('click', function() {
+              const iconType = icon.classList[2]; 
+              let url = '';
+
+              switch (iconType) {
+                  case 'fa-whatsapp':
+                      url = 'https://api.whatsapp.com/send?phone=966552904804'; 
+                      break;
+                  case 'fa-instagram':
+                      url = 'https://www.instagram.com/easyblood2024/'; 
+                      break;
+                  case 'fa-twitter':
+                      url = 'https://twitter.com/easyblood2024'; 
+                      break;
+                  case 'fa-facebook-official':
+                      url = 'https://www.facebook.com/profile.php?id=61558652523558'; 
+                      break;
+                 
+              }
+
+              window.open(url, '_blank'); 
+          });
+      });
+  });
+</script>
+
+<script>
+let profileDropdownList = document.querySelector(".profile-dropdown-list");
+let btn = document.querySelector(".profile-dropdown-btn");
+
+let classList = profileDropdownList.classList;
+
+const toggle = () => classList.toggle("active");
+
+window.addEventListener("click", function (e) {
+  if (!btn.contains(e.target)) classList.remove("active");
+});
+</script>
+
+
+</body>
+</html>

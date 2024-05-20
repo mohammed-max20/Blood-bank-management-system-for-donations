@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-blood donation questionnaire</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        text-align: left;
+        
+    }
+    input[type="text"], select {
+        width: 50%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        
+    }
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+     /* تنسيق زر الإرسال */
+.submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333336;
+    color: #fff;
+    border: 2px solid #2a2b2a;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 1.1); /* ظل خفيف */
+    margin-bottom: -30px; /* تخفيض المسافة العلوية بـ 10 بكسل */
+
+}
+
+/* تحويل لون الزر عند التحويم */
+.submit-button:hover {
+    background-color: #242724;
+    border-color: #e20909;
+}
+
+/* تنسيق العنصر الذي يحتوي على الزر لوسط الصفحة */
+.center {
+    text-align: center;
+}
+
+
+
+    span {
+  content: "\2193";
+}
+
+.arrow {
+        font-size: 40px; /* حجم السهم */
+        margin-bottom: 10px;
+        position: relative; /* تحديد الوضع */
+        top: -20px; /* رفع السهم لأعلى بقيمة سلبية */
+    }
+
+
+    .arrow2 {
+        font-size: 40px; /* حجم السهم */
+        margin-bottom: 10px;
+        position: relative; /* تحديد الوضع */
+        top: -20px; /* رفع السهم لأعلى بقيمة سلبية */
+    }
+
+    .arrow2 {
+        transform: rotate(180deg);
+        display: inline-block;
+    }
+
+
+
+
+
+    /* أخفي السؤالين عندما يكون الجنس ذكر */
+    #q9, #q25 {
+        display: none;
+    }
+</style>
+</head>
+<body>
+    <div id="top-of-page"></div>
+<div class="container">
+    <h1>Pre-blood donation questionnaire</h1>
+    
+    <form action="/submit_questionnaire" method="post"> 
+        <a href="#end-of-page" class="arrow">
+            <span>&#8595;</span>
+         </a> 
+
+        <div class="field">
+            <label for="name"> Full Name / الاسم كامل:</label>
+            <input type="text" id="firstName" name="name"  value="{{ session['first_name'] }} {{ session['middle_name'] }} {{ session['last_name'] }}" readonly>
+        </div>
+
+          <div class="field">
+            <label for="id_number">ID Number / رقم الهوية:</label>
+    <input type="text" id="id" name="id_number" value="{{ session['id_number'] }}"readonly>
+
+          </div>
+        
+          <div class="field">
+            <label for="blood_type">Blood type / فصيلة الدم:</label>
+            <select id="blood_type" name="blood_type" required>
+                <option value="{{ session['blood_type'] }}">{{ session['blood_type'] }} </option>
+            </select>
+          </div>
+          <div>
+          <label for="gender">Gender / الجنس</label>
+          <select id="gender" name="gender" required>
+            <option value="{{ session['gender'] }}">{{ session['gender'] }}</option>
+          </select>
+          </div>
+        
+        
+        
+        <label for="q1">1. Are you feeling healthy today? / هل تشعر بأنك في صحة جيدة اليوم؟</label>
+        <div>
+            <input type="radio" id="q1_yes" name="q1" value="نعم" required>
+            <label for="q1_yes">Yes / نعم</label>
+            <input type="radio" id="q1_no" name="q1" value="لا" required>
+            <label for="q1_no">No / لا</label>
+        </div>
+
+        <div>
+        <label for="q1">2. Did you take any antibiotics? / هل تتناول اي مضاد حيوي؟</label>
+       
+            <input type="radio" id="q2_yes" name="q2" value="نعم" required>
+            <label for="q2_yes">Yes / نعم</label>
+            <input type="radio" id="q2_no" name="q2" value="لا" required>
+            <label for="q2_no">No / لا</label>
+        </div>
+
+        <div>
+            <label for="q3">3. Did you take any other drugs against infectious diseases? / هل تتناول اي عقاقير اخرى مضادة للأمراض المعديه؟ </label>      
+                <input type="radio" id="q3_yes" name="q3" value="نعم" required>
+                <label for="q3_yes">Yes / نعم</label>
+                <input type="radio" id="q3_no" name="q3" value="لا" required>
+                <label for="q3_no">No / لا</label>
+            </div>
+
+            <div>
+                <label for="q4">4. Are you taking any of the drugs on the list of positive medications to postpone blood donation? / هل تتناول اي من العقاقير المدرجة في قائمة الادوية الموجبة لتأجيل التبرع بالدم؟</label>  
+                    <input type="radio" id="q4_yes" name="q4" value="نعم" required>
+                    <label for="q4_yes">Yes / نعم</label>
+                    <input type="radio" id="q4_no" name="q4" value="لا" required>
+                    <label for="q4_no">No / لا</label>
+                </div>
+
+                <div>
+                    <label for="q5">5. Have you read the information you must read before donating blood? / هل أطلعت على المعلومات الموجب قراءتها قبل التبرع بالدم؟</label>      
+                        <input type="radio" id="q5_yes" name="q5" value="نعم" required>
+                        <label for="q5_yes">Yes / نعم</label>
+                        <input type="radio" id="q5_no" name="q5" value="لا" required>
+                        <label for="q5_no">No / لا</label>
+                    </div>
+                    <div>
+                        <label for="q6">6. During the previous 72 hours: Have you taken aspirin or any medication containing aspirin? / خلال 72 ساعة السابقة : هل تناولت الاسبرين او اي دواء يحتوي على الاسبرين؟
+                        </label>      
+                            <input type="radio" id="q6_yes" name="q6" value="نعم" required>
+                            <label for="q6_yes">Yes / نعم</label>
+                            <input type="radio" id="q6_no" name="q6" value="لا" required>
+                            <label for="q6_no">No / لا</label>
+                        </div>
+
+                    <div>
+                        <label for="q7"> 7. During the past 4 weeks, have you been infected with the new Coronavirus, Covid-19, or been in contact with an infected person? / خلال 4 الاسابيع السابقة هل أصبت بمرض كوفيد-19 كورونا المستجد او خالطت شخصاً مصاب؟ </label>    
+                            <input type="radio" id="q7_yes" name="q7" value="نعم" required>
+                            <label for="q7_yes">Yes / نعم</label>
+                            <input type="radio" id="q7_no" name="q7" value="لا" required>
+                            <label for="q7_no">No / لا</label>
+                        </div>
+
+                        <div>
+                        <label for="q8">8. During the past 4 weeks, have you visited North America or any area affected by the West Nile virus? / خلال 4 الاسابيع الماضية هل زرت أمريكا الشمالية أو أي منطقة موبوءة بفيروس غرب النيل؟</label>
+                        <input type="radio" id="q8_yes" name="q8" value="نعم" required>
+                        <label for="q8_yes">Yes / نعم</label>
+                        <input type="radio" id="q8_no" name="q8" value="لا" required>
+                        <label for="q8_no">No / لا</label>
+                        </div>
+
+                        <div>
+                        <label for="q9">9. For donor women: Are you pregnant now or have you been pregnant during the past weeks? / للنساء المتبرعات: هل انتي حامل الان او كنتي حامل خلال الاسابيع الماضية؟</label>
+                        <input type="radio" id="q9_yes" name="q9" value="نعم" required>
+                        <label for="q9_yes">Yes / نعم</label>
+                        <input type="radio" id="q9_no" name="q9" value="لا" required>
+                        <label for="q9_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q10">10. During the past 8 weeks: Have you drunk unpasteurized cow, sheep, or camel milk or interacted directly with the fluids of these animals? / خلال 8 الاسابيع السابقة :هل شربت حليب أبقار أو أغنام أو جمال غير مبستر أو تعاملت بشكل مباشر مع سوائل هذي الحيوانات؟</label>
+                            <input type="radio" id="q10_yes" name="q10" value="نعم" required>
+                            <label for="q10_yes">Yes / نعم</label>
+                            <input type="radio" id="q10_no" name="q10" value="لا" required>
+                            <label for="q10_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q11">11. During the past 8 weeks: Have you donated blood, plasma, or platelets? / خلال ال8 الاسابيع السابقة: هل تبرعت بالدم أو البلازما أو صفائح الدم؟</label>
+                            <input type="radio" id="q11_yes" name="q11" value="نعم" required>
+                            <label for="q11_yes">Yes / نعم</label>
+                            <input type="radio" id="q11_no" name="q11" value="لا" required>
+                            <label for="q11_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q12">12. During the past 8 weeks: Have you received any vaccinations? / خلال 8 الاسابيع السابقة: هل تلقيت أي تطعيمات؟ </label>
+                            <input type="radio" id="q12_yes" name="q12" value="نعم" required>
+                            <label for="q12_yes">Yes / نعم</label>
+                            <input type="radio" id="q12_no" name="q12" value="لا" required>
+                            <label for="q12_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q13">13. During the previous 8 weeks: Have you been in direct contact with someone who received the smallpox vaccine? / خلال 8 الاسابيع السابقة: هل كنت على اتصال مباشر مع شخص تلقى لقاح الجدري؟</label>
+                            <input type="radio" id="q13_yes" name="q13" value="نعم" required>
+                            <label for="q13_yes">Yes / نعم</label>
+                            <input type="radio" id="q13_no" name="q13" value="لا" required>
+                            <label for="q13_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q14">14. In the previous 16 weeks: Have you donated two units of red blood cells using an apheresis machine? / في الاسابيع 16 السابقة: هل تبرعت بوحدتي كريات الدم الحمراء باستخدام جهاز فصل مكونات الدم؟  </label>
+                            <input type="radio" id="q14_yes" name="q14" value="نعم" required>
+                            <label for="q14_yes">Yes / نعم</label>
+                            <input type="radio" id="q14_no" name="q14" value="لا" required>
+                            <label for="q14_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q15">15. In the previous 16 weeks: Have you ever been infected with Zika virus, visited an area affected by Zika virus, had sexual contact with someone who had or recovered from Zika virus, or traveled to an area affected by Zika virus? / في الاسابيع ال 16 السابقة: هل سبق لك أن أصبت بفيروس زيكا أو زرت منطقة موبوءة به, أو أتصلت جنسياً مع شخص مصاب بفيروس زيكا أو شفي منه أو سافر لمنطقة موبوءه به؟ </label>
+                            <input type="radio" id="q15_yes" name="q15" value="نعم" required>
+                            <label for="q15_yes">Yes / نعم</label>
+                            <input type="radio" id="q15_no" name="q15" value="لا" required>
+                            <label for="q15_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q16">16. During the past 12 months: Have you had a blood transfusion? / خلال ال12 شهر الماضية: هل نقل لك دم؟</label>
+                            <input type="radio" id="q16_yes" name="q16" value="نعم" required>
+                            <label for="q16_yes">Yes / نعم</label>
+                            <input type="radio" id="q16_no" name="q16" value="لا" required>
+                            <label for="q16_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q17">17. Within the past 12 months: Have you had an organ or bone marrow transplant? / خلال ال12 شهر الماضية: هل أجري لك عملية زراعة للأعضاء أو نخاع العظام؟
+                            </label>
+                            <input type="radio" id="q17_yes" name="q17" value="نعم" required>
+                            <label for="q17_yes">Yes / نعم</label>
+                            <input type="radio" id="q17_no" name="q17" value="لا" required>
+                            <label for="q17_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q18"> 18. During the past 12 months: Have you had a bone or skin transplant? / خلال ال12 شهر الماضية: هل أجري لك عملية زراعه عظم أو جلد؟
+                            </label>
+                            <input type="radio" id="q18_yes" name="q18" value="نعم" required>
+                            <label for="q18_yes">Yes / نعم</label>
+                            <input type="radio" id="q18_no" name="q18" value="لا" required>
+                            <label for="q18_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q19"> 19. During the past 12 months: Have you been exposed through your skin, eyes or mucous tissues to blood from another person? / خلال ال12 شهر الماضية: هل تعرضت عن طريق الجلد أو العين أو الأنسجة المخاطية لدم من شخص أخر؟</label>
+                            <input type="radio" id="q19_yes" name="q19" value="نعم" required>
+                            <label for="q19_yes">Yes / نعم</label>
+                            <input type="radio" id="q19_no" name="q19" value="لا" required>
+                            <label for="q19_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q20">20. During the past 12 months: Have you been accidentally pricked by a needle contaminated with someone else's blood? / خلال ال12 شهر الماضية: هل تعرضت لوخز غير مقصود بأبره ملوثة بدم شخص أخر؟ </label>
+                            <input type="radio" id="q20_yes" name="q20" value="نعم" required>
+                            <label for="q20_yes">Yes / نعم</label>
+                            <input type="radio" id="q20_no" name="q20" value="لا" required>
+                            <label for="q20_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q21">21. During the past 12 months: Have you had sexual contact with someone who has HIV/AIDS? / خلال ال12 شهر الماضية: هل أتصلت جنسياً بشخص مصاب بمرض نقص المناعه المكتسب ونعني به ايدز؟</label>
+                            <input type="radio" id="q21_yes" name="q21" value="نعم" required>
+                            <label for="q21_yes">Yes / نعم</label>
+                            <input type="radio" id="q21_no" name="q21" value="لا" required>
+                            <label for="q21_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q22"> 22. During the past 12 months: Have you had sexual contact with someone who takes money or drugs in exchange for sex? / خلال ال12 شهر الماضية: هل أتصلت جنسياً بشخص يأخذ المال أو المخدر مقابل الجنس؟</label>
+                            <input type="radio" id="q22_yes" name="q22" value="نعم" required>
+                            <label for="q22_yes">Yes / نعم</label>
+                            <input type="radio" id="q22_no" name="q22" value="لا" required>
+                            <label for="q22_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q23">23. Within the past 12 months: Have you had sexual contact with someone who takes drugs not prescribed by a doctor or intravenous drugs? / خلال ال12 شهر الماضية: هل أتصلت جنسياً بشخص يأخذ ابره لتناول عقاقير غير موصوفة له من قبل طبيب أو مخدرات عن طريق الوريد؟</label>
+                            <input type="radio" id="q23_yes" name="q23" value="نعم" required>
+                            <label for="q23_yes">Yes / نعم</label>
+                            <input type="radio" id="q23_no" name="q23" value="لا" required>
+                            <label for="q23_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q24">24. During the past 12 months: Have you had sexual contact with a person with homophilia? / خلال 12 شهر الماضية: هل أتصلت جنسياً مع شخص مصاب بالهوموفيليا؟</label>
+                            <input type="radio" id="q24_yes" name="q24" value="نعم" required>
+                            <label for="q24_yes">Yes / نعم</label>
+                            <input type="radio" id="q24_no" name="q24" value="لا" required>
+                            <label for="q24_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q25">25. Within 12 months for female donors only: Have you had sexual contact with someone who has committed sodomy? / خلال 12 شهر للمتبرعين الاناث فقط: هل أتصلتي جنسياً مع شخص مارس اللواط؟</label>
+                            <input type="radio" id="q25_yes" name="q25" value="نعم" required>
+                            <label for="q25_yes">Yes / نعم</label>
+                            <input type="radio" id="q25_no" name="q25" value="لا" required>
+                            <label for="q25_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q26">26. Within the past 12 months: Have you had sexual contact with someone who has viral hepatitis? / خلال 12 شهر الماضية: هل أتصلت جنسياً مع شخص مصاب بالتهاب كبد فيروسي؟</label>
+                            <input type="radio" id="q26_yes" name="q26" value="نعم" required>
+                            <label for="q26_yes">Yes / نعم</label>
+                            <input type="radio" id="q26_no" name="q26" value="لا" required>
+                            <label for="q26_no">No / لا</label>
+                        </div>
+
+                        <div>
+                            <label for="q27">27. In the past 12 months: Have you worked with someone with viral hepatitis? / خلال 12 شهر الماضية: هل عملت مع شخص مصاب بالتهاب كبد فيروسي؟</label>
+                            <input type="radio" id="q27_yes" name="q27" value="نعم" required>
+                            <label for="q27_yes">Yes / نعم</label>
+                            <input type="radio" id="q27_no" name="q27" value="لا" required>
+                            <label for="q27_no">No / لا</label>
+                        </div>
+
+                         <div>
+                        <label for="q28">28. During the past 12 months: Have you had a skin tattoo or have you ever had cupping? / خلال 12 شهر الماضية: هل أجري لك وشم للجلد او سبق وأن أجريت حجامة؟ </label>
+                        <input type="radio" id="q28_yes" name="q28" value="نعم" required>
+                        <label for="q28_yes">Yes / نعم</label>
+                        <input type="radio" id="q28_no" name="q28" value="لا" required>
+                        <label for="q28_no">No / لا</label>                
+                        </div>
+
+                        <div>
+                       <label for="q29">29. During the past 12 months: Have you had a piercing or had your ear or any other organ pierced? / خلال 12 شهر الماضية: هل تحجمت أو أجري لك ثقب بالأذن أو اي عضو أخر؟ </label>
+                       <input type="radio" id="q29_yes" name="q29" value="نعم" required>
+                       <label for="q29_yes">Yes / نعم</label>
+                       <input type="radio" id="q29_no" name="q29" value="لا" required>
+                       <label for="q29_no">No / لا</label>
+                      </div>
+
+                       <div>
+                      <label for="q30">30. Within the past 12 months: Have you received treatment for gonorrhea or syphilis? / خلال 12 شهر الماضية: هل تلقيت علاج للسيلان أو الزهري؟ </label>
+                       <input type="radio" id="q30_yes" name="q30" value="نعم" required>
+                            <label for="q30_yes">Yes / نعم</label>
+                            <input type="radio" id="q30_no" name="q30" value="لا" required>
+                            <label for="q30_no">No / لا</label>
+                         </div>
+
+<div>
+    <label for="q31">31. During the past 12 months: Have you ever been admitted to a hospital, prison, or correctional center? / خلال 12 شهر الماضية: هل سبق أن أدخلت مصحة أوسجن أو مركز اصلاح؟ </label>
+    <input type="radio" id="q31_yes" name="q31" value="نعم" required>
+    <label for="q31_yes">Yes / نعم</label>
+    <input type="radio" id="q31_no" name="q31" value="لا" required>
+    <label for="q31_no">No / لا</label>
+
+</div>
+
+<div>
+    <label for="q32">32. During the past 3 years: Have you been outside the Kingdom or visited a malaria-endemic area inside or outside the Kingdom? / خلال ال3 سنوات الماضية: هل كنت خارج المملكة او زرت منطقة موبوءة بالملاريا داخل أو خارج المملكة؟</label>
+    <input type="radio" id="q32_yes" name="q32" value="نعم" required>
+    <label for="q32_yes">Yes / نعم</label>
+    <input type="radio" id="q32_no" name="q32" value="لا" required>
+    <label for="q32_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q33">33. From 1980 to 1996: Did you reside in Britain for periods of up to three months? / منذ عام 1980 ولغاية 1996: هل أقمت في بريطانيا فترات تبلغ مدتها ثلاث أشهر؟</label>
+    <input type="radio" id="q33_yes" name="q33" value="نعم" required>
+    <label for="q33_yes">Yes / نعم</label>
+    <input type="radio" id="q33_no" name="q33" value="لا" required>
+    <label for="q33_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q34">34. From 1980 to 1996: Did you live in Europe for periods of 6 months? / منذ عام 1980 ولغاية 1996: هل أقمت في أوروبا فترات تبلغ مدتها 6 أشهر</label>
+    <input type="radio" id="q34_yes" name="q34" value="نعم" required>
+    <label for="q34_yes">Yes / نعم</label>
+    <input type="radio" id="q34_no" name="q34" value="لا" required> 
+    <label for="q34_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q35">35. From 1980 to 2001: Did you live in Europe for periods of 5 years? / منذ عام 1980 ولغاية 2001: هل أقمت في أوروبا فترات تبلغ مدتها 5 سنوات؟</label>
+    <input type="radio" id="q35_yes" name="q35" value="نعم" required>
+    <label for="q35_yes">Yes / نعم</label>
+    <input type="radio" id="q35_no" name="q35" value="لا" required>
+    <label for="q35_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q36">36. Since 1980: Did you receive a blood transfusion in Britain or France? / منذ عام 1980: نقل لك دم في بريطانيا أو فرنسا؟ </label>
+    <input type="radio" id="q36_yes" name="q36" value="نعم" required>
+    <label for="q36_yes">Yes / نعم</label>
+    <input type="radio" id="q36_no" name="q36" value="لا" required>
+    <label for="q36_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q37">37. Since 1977: Have you received money or drugs in exchange for sex? / منذ عام 1977: هل أستلمت مالاً أو مخدراً مقابل الجنس؟</label>
+    <input type="radio" id="q37_yes" name="q37" value="نعم" required>
+    <label for="q37_yes">Yes / نعم</label>
+    <input type="radio" id="q37_no" name="q37" value="لا" required>
+    <label for="q37_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q38">38. Since 1977: Have you ever had sodomy? / منذ عام 1977: هل سبق أن مارست اللواط؟</label>
+    <input type="radio" id="q38_yes" name="q38" value="نعم" required>
+    <label for="q38_yes">Yes / نعم</label>
+    <input type="radio" id="q38_no" name="q38" value="لا" required>
+    <label for="q38_no">No / لا</label>
+
+</div>
+
+<div>
+    <label for="q39">39. Have you ever had AIDS? / في اي وقت مضى: هل اصبت بالإيدز؟</label>
+    <input type="radio" id="q39_yes" name="q39" value="نعم" required>
+    <label for="q39_yes">Yes / نعم</label>
+    <input type="radio" id="q39_no" name="q39" value="لا" required>
+    <label for="q39_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q40">40. Have you ever used a needle to take drugs, anesthetics or stimulants that were not prescribed to you by a doctor? / في اي وقت مضى: هل سبق أن استخدمت إبره لتناول عقاقير أو مخدر أو منشطات لم توصف لك من قبل طبيب؟</label>
+    <input type="radio" id="q40_yes" name="q40" value="نعم" required>
+    <label for="q40_yes">Yes / نعم</label>
+    <input type="radio" id="q40_no" name="q40" value="لا" required>
+    <label for="q40_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q41">41. Have you ever used concentrated blood clotting factors? / في اي وقت مضى: هل سبق لك أن أستخدمت عوامل تخثر الدم المركزه؟</label>
+    <input type="radio" id="q41_yes" name="q41" value="نعم" required>
+    <label for="q41_yes">Yes / نعم</label>
+    <input type="radio" id="q41_no" name="q41" value="لا" required>
+    <label for="q41_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q42">42. Have you ever had viral hepatitis or any other liver disease? / في اي وقت مضى: هل سبق لك أن اصبت بالتهاب كبد فيروسي أو بأي أمراض أخرى بالكبد؟</label>
+    <input type="radio" id="q42_yes" name="q42" value="نعم" required>
+    <label for="q42_yes">Yes / نعم</label>
+    <input type="radio" id="q42_no" name="q42" value="لا" required>
+    <label for="q42_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q43">43. Have you ever had malaria / في اي وقت مضى: هل سبق لك أن أصبت بالملاريا؟</label>
+    <input type="radio" id="q43_yes" name="q43" value="نعم" required>
+    <label for="q43_yes">Yes / نعم</label>
+    <input type="radio" id="q43_no" name="q43" value="لا" required>
+    <label for="q43_no">No / لا</label>
+</div>
+
+<div>
+    <lable for="q44">44. Have you ever had a parasitic disease called chagazosis or babesiosis? / في اي وقت مضى: هل أصبت بمرض طفيلي يسمى شاقاز أو البابيزيا؟</lable> <br>
+    <input type="radio" id="q44_yes" name="q44" value="نعم" required> 
+    <label for="q44_yes">Yes / نعم</label>
+    <input type="radio" id="q44_no" name="q44" value="لا" required>
+    <label for="q44_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q45">45. Have you ever had a brain operation, a brain tissue transplant, or a transplant of tissues or organs from a non-human source? / في اي وقت مضى: هل سبق أن أجري لك عملية في الدماغ أو زراعة لأنسجة الدماغ أو زراعة أنسجة أو أعضاء من مصدر غير بشري؟ </label>
+    <input type="radio" id="q45_yes" name="q45" value="نعم" required>
+    <label for="q45_yes">Yes / نعم</label>
+    <input type="radio" id="q45_no" name="q45" value="لا" required>
+    <label for="q45_no">No / لا</label>
+</div>
+
+<div>
+    <lable for="q46">46. Have you ever had cancer or any malignant blood disease? / في اي وقت مضى: هل سبق أن أصبت بالسرطان أو بأي مرض خبيث بالدم؟</lable> <br>
+    <input type="radio" id="q46_yes" name="q46" value="نعم" required>
+    <label for="q46_yes">Yes / نعم</label>
+    <input type="radio" id="q46_no" name="q46" value="لا" required>
+    <label for="q46_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q47">47. Have you ever had heart or lung problems? / في اي وقت مضى: هل سبق أن عانيت من مشاكل في القلب أو الرئه؟</label>
+    <input type="radio" id="q47_yes" name="q47" value="نعم" required>
+    <label for="q47_yes">Yes / نعم</label>
+    <input type="radio" id="q47_no" name="q47" value="لا" required>
+    <label for="q47_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q48">48. Have you ever had you suffer from bleeding problems or blood diseases? / في اي وقت مضى: هل تعاني من مشاكل نزف الدم أو أمراض الدم؟</label>
+    <input type="radio" id="q48_yes" name="q48" value="نعم" required>
+    <label for="q48_yes">Yes / نعم</label>
+    <input type="radio" id="q48_no" name="q48" value="لا" required>
+    <label for="q48_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q49"> 49. Have you ever had sexual contact with someone who was born or lived in Africa? / في اي وقت مضى: هل سبق ان كنت على اتصال جنسي مع شخص ولد او عاش في افريقيا؟</label>
+    <input type="radio" id="q49_yes" name="q49" value="نعم" required>
+    <label for="q49_yes">Yes / نعم</label>
+    <input type="radio" id="q49_no" name="q49" value="لا" required>
+    <label for="q49_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q50"> 50. Have you ever visited any African country? / في اي وقت مضى :هل زرت  أي دوله أفريقية؟ </label>
+    <input type="radio" id="q50_yes" name="q50" value="نعم" required>
+    <label for="q50_yes">Yes / نعم</label>
+    <input type="radio" id="q50_no" name="q50" value="لا" required>
+    <label for="q50_no">No / لا</label>
+</div> 
+
+<div>
+    <label for="q51">51. Have you ever or any of your relatives ever had mad cow disease? / في اي وقت مضى: هل سبق لك او لأحد من أقاربك الإصابه بمرض جنون البقر؟</label>
+    <input type="radio" id="q51_yes" name="q51" value="نعم" required>
+    <label for="q51_yes">Yes / نعم</label>
+    <input type="radio" id="q51_no" name="q51" value="لا" required>
+    <label for="q51_no">No / لا</label>
+</div>
+
+<div>
+    <label for="q52">52. Have you ever had brucellosis / في اي وقت مضى: هل سبق أن أصبت بالحمى المالطية؟ </label>
+    <input type="radio" id="q52_yes" name="q52" value="نعم" required>
+    <label for="q52_yes">Yes / نعم</label>
+    <input type="radio" id="q52_no" name="q52" value="لا" required>
+    <label for="q52_no">No / لا</label>
+</div> 
+
+<div>
+    <label for="q53"> 53. Have you ever had any incurable or serious disease? / في اي وقت مضى: هل سبق أن أصبت بأي مرض مستعصي أو خطير؟</label>
+    <input type="radio" id="q53_yes" name="q53" value="نعم" required>
+    <label for="q53_yes">Yes / نعم</label>
+    <input type="radio" id="q53_no" name="q53" value="لا" required>
+    <label for="q53_no">No / لا</label>
+</div>
+<div class="center">
+    <input type="submit" value="Submit the questionnaire" class="submit-button">
+</div>
+      
+<br>
+      <a href="#top-of-page" class="arrow2">
+        <span>&#8595;</span>
+    </a>
+    
+
+      <div id="end-of-page"></div>
+    </form>
+</div>
+
+
+</body>
+</html>

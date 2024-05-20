@@ -1,0 +1,117 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('cells.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* زيادة ارتفاع الصفحة */
+  }
+  
+    
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+      color: #070707;
+    }
+    
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 689px; 
+      
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      font-weight: bold; 
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      background-color: transparent;
+      box-sizing: border-box;
+      resize: none;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus,                        /*  input حدود ال  */
+    textarea:focus {
+      outline: none;
+      border-color: #c31212;
+    }
+    
+    button {
+      width: 100%;
+      padding: 10px 0;
+      background-color: #c31212;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: -10px;
+    }
+    
+    button:hover {
+      background-color: #a50000;
+    }
+   
+
+ 
+ input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 2px solid #cccccc;
+  background-color: transparent;           /*  يجعلها شفافة   */
+  box-sizing: border-box;
+  resize: none;
+  outline: none; /* يزيل الحدود عند التركيز */
+}
+
+/* تصميم عنصر الإدخال عند التركيز */
+input[type="datetime-local"]:focus {
+  border-color: #c31212;
+}
+input[type="datetime-local"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+#gender-label,
+#gender {
+    display: none;
+}
+
+#bloodType-label,
+#bloodType {
+    display: none;
+}
+
+#city {
+  display: none;
+}

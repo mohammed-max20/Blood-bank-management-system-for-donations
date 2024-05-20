@@ -1,0 +1,528 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  
+  a {
+      text-decoration: none;
+      color: inherit;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  
+  .header {
+    grid-area: header;
+    background-color: #ffffff;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+  }
+  
+ 
+  .grid-container {
+    display: grid;
+    grid-template-areas: 
+      'header header header header header header' 
+      'left left middle middle right right' 
+      'footer footer footer footer footer footer';
+    /* grid-column-gap: 10px; - اذا نبي فراغ بينهم */
+    margin-bottom: 100px; 
+
+  } 
+  
+  
+  
+  main {
+      min-height: 100vh;
+  }
+  
+  header {
+      background: white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      
+  }
+      h1{
+          font: normal 4em 'Playfair Display SC', serif;
+          text-align:center;
+      }
+  
+      nav {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+      }
+      
+  
+          nav a {
+              flex-grow: 1;
+              text-align: center;
+              padding: 1em;
+              position: relative;
+          }
+  
+          
+          nav a::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right:0;
+              height: 2px;
+              transform: scaleX(0);
+              background: #c51414;
+              transition: 0.7s transform cubic-bezier(0.06, 0.9, 0.28, 1);
+          }
+  
+          nav a:hover::after{
+              transform: scaleX(0.5)
+          }
+  
+  
+          header {
+              text-align: center;
+          }
+          
+          .intro-text {
+              margin-bottom: 20px; /* تعديل المسافة بين النص والزر */
+          }
+  
+  
+  .cta-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ff5a5f;
+    color: #fff;
+    text-decoration: none;                     /* learn more*/
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #e00008;              /*      learn more*/
+  }
+  
+  
+    .left, .middle, .right {
+        display: inline-block;
+        vertical-align: top;
+        width: 90%; /* تقليل العرض بقليل لتناسب العناصر بدون فراغات */
+        margin: 0 ; /* توسيط العناصر بالمنتصف */
+        padding: 0;
+        text-align: center;
+        margin-right: 96px;
+    }
+
+    .left img, .middle img, .right img {
+        width: 120%;
+        height: 350px;
+    }
+
+
+/* تأثير hover */
+.left:hover, .middle:hover, .right:hover {
+  transform: scale(1.1); /* زيادة حجم العنصر عند hover */
+  cursor: pointer; /* تغيير شكل المؤشر عند التحويل */
+  filter: brightness(1.2); /* زيادة سطوع الخلفية */
+}
+
+
+    /* تحديد الألوان للخلفية */
+    .left { background-color: #ffffff; }
+    .middle { background-color: #ffffff; }
+    .right { background-color: #ffffff; }
+
+  
+
+    .ram-padding-32 {
+      padding: 32px;
+    }
+    
+    .ram-padding-32 h4 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .ram-padding-32 h6 {
+      font-size: 1rem;
+      font-style: italic;
+      color: #555; /* لون النص */
+      margin-top: 10px; /* تباعد من الأعلى */
+    }
+    
+
+    
+  
+  /* Style the footer */
+  .footer {
+      position: relative;
+      background: #bb2525;
+      min-height: 100px;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start; 
+      flex-wrap: wrap; 
+      margin-top:47px;
+    }
+    
+
+
+    .footer-info a {
+      color: white; /* Set the color of the anchor tag to white */              /* Email */ 
+      text-decoration: none; /* Remove the underline */ 
+      font-size: 16px;
+  }
+  
+  
+  
+    .social-icon,
+    .menu {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+    
+    .social-icon__item,
+    .menu__item {
+      list-style: none;
+    }
+    
+    .social-icon__link {
+      font-size: 2rem;
+      color: #fff;
+      margin: 0 10px;
+      display: inline-block;
+      transition: 0.5s;
+    }
+    .social-icon__link:hover {
+      transform: translateY(-10px);
+    }
+
+
+    .like-us a i {
+      font-size: 18px; /* تكبير حجم الأيقونات */
+  }
+  
+  .like-us a i:hover {
+      transform: scale(1.5); /* تكبير حجم الأيقونات عند التحويم */
+  }
+    
+    .menu__link {
+      font-size: 1.2rem;
+      color: #fff;
+      margin: 0 10px;
+      display: inline-block;
+      transition: 0.5s;
+      text-decoration: none;
+      opacity: 0.75;
+      font-weight: 300;
+    }
+    .menu__link:hover{
+        color: white;
+    }
+    
+    .menu__link:hover {
+      opacity: 1;
+    }
+    
+    .footer p {
+      color: #fff;
+      margin: 15px 0 10px 0;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+    
+    .wave {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('imugr.png');
+      background-size: 1000px 100px;
+      
+    }
+    
+    .wave#wave1 {
+      z-index: 1000;
+      opacity: 1;  /* العتامة */
+      bottom: 0;
+      animation: animateWaves 4s linear infinite;
+    }
+    
+    .wave#wave2 {
+      z-index: 999;
+      opacity: 0.5;
+      bottom: 10px;
+      animation: animate 4s linear infinite !important;
+    }
+    
+    .wave#wave3 {
+      z-index: 1000;
+      opacity: 0.2;
+      bottom: 15px;
+      animation: animateWaves 3s linear infinite;
+    }
+    
+    .wave#wave4 {
+      z-index: 999;
+      opacity: 0.7;
+      bottom: 20px;
+      animation: animate 3s linear infinite;
+    }
+    
+    @keyframes animateWaves {
+      0% {
+        background-position: 1000px;
+      }
+      100% {
+        background-position: 0px;
+      }
+  }
+  
+  @keyframes animate {
+      0% {
+        background-position: -1000px;
+      }
+      100% {
+        background-position: 0px;
+      }
+  }
+  
+  
+  .footer-info {
+      flex: 1;
+      text-align: left; /* Align text to the left */
+      margin-right: 20px; /* Add some margin between items */
+  }
+  
+  
+  .footer-info {
+      flex: 1;
+      text-align: center;
+  }
+  
+  .footer .fa {
+      color: white; /* Set the color of icons to white */
+      margin-top: 5px; /* Add margin to the top of the icons */
+  
+  }
+  
+  .contact-info,
+  .contact-us,
+  .like-us {
+      margin-bottom: 20px;
+  }
+  
+  .contact-info i,
+  .contact-us i,
+  .like-us i {
+      margin-right: 10px;
+  }
+  
+  .like-us i {
+      margin: 0 5px;
+  }
+  
+  .powered-by {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #999;
+  }
+  
+  
+  #policiesLink {
+      color: white; /* Set the color to white */
+      text-decoration: none; /* Remove the underline */
+  }
+  
+  #policiesLink:hover {
+      text-decoration: none; /* Remove underline on hover */
+  }
+  
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media (max-width: 600px) {
+    .grid-container  {
+      grid-template-areas: 
+        'header header header header header header' 
+        'left left left left left left' 
+        'middle middle middle middle middle middle' 
+        'right right right right right right' 
+        'footer footer footer footer footer footer';
+    }
+    
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap");
+:root {
+  --primary: #eeeeee;
+  --secondary: #227c70;
+  --green: #82cd47;
+  --secondary-light: rgb(34, 124, 112, 0.2);
+  --secondary-light-2: rgb(127, 183, 126, 0.1);
+  --white: #fff;
+  --black: #393e46;
+
+  --shadow: 0px 2px 8px 0px var(--secondary-light);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  background-color: var(--white);
+  padding: 0 8%;
+  box-shadow: var(--shadow);
+}
+
+.navbar-logo {
+  cursor: pointer;
+}
+
+.navbar-list {
+  width: 100%;
+  text-align: right;
+  padding-right: 2rem;
+}
+
+.navbar-list li {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+.navbar-list li a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: none;
+}
+
+.profile-dropdown {
+  position: relative;
+  width: fit-content;
+}
+
+.profile-dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 150px;
+  border-radius: 50px;
+  color: var(--black);
+   background-color: white;
+  box-shadow: var(--shadow);
+
+  cursor: pointer;
+  border: 1px solid var(--secondary);
+  transition: box-shadow 0.2s ease-in, background-color 0.2s ease-in,
+    border 0.3s;
+}
+
+.profile-dropdown-btn:hover {
+  background-color: var(--secondary-light-2);
+  box-shadow: var(--shadow);
+}
+
+.profile-img {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+ /* background: url(./assets/profile-pic.jpg);*/
+  background-size: cover;
+}
+
+.profile-img i {
+  position: absolute;
+  right: 0;
+  bottom: 0.3rem;
+  font-size: 0.5rem;
+  color: var(--green);
+}
+
+.profile-dropdown-btn span {
+  margin: 0 0.5rem;
+  margin-right: 0;
+}
+
+.profile-dropdown-list {
+  position: absolute;
+  top: 68px;
+  width: 220px;
+  right: 0;
+  background-color: var(--white);
+  border-radius: 10px;
+  max-height: 0;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: max-height 0.5s;
+}
+
+.profile-dropdown-list hr {
+  border: 0.5px solid var(--green);
+}
+
+.profile-dropdown-list.active {
+  max-height: 500px;
+}
+
+.profile-dropdown-list-item {
+  padding: 0.5rem 0rem 0.5rem 1rem;
+  transition: background-color 0.2s ease-in, padding-left 0.2s;
+  
+}
+
+.profile-dropdown-list-item a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--black);
+}
+
+.profile-dropdown-list-item a i {
+  margin-right: 0.8rem;
+  font-size: 1.1rem;
+  width: 2.3rem;
+  height: 2.3rem;
+  background-color: var(--secondary);
+  color: var(--white);
+  line-height: 2.3rem;
+  text-align: center;
+  margin-right: 1rem;
+  border-radius: 50%;
+  transition: margin-right 0.3s;
+}
+
+.profile-dropdown-list-item:hover {
+  padding-left: 1.5rem;
+  background-color: var(--secondary-light);
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donor Experience</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* Title styles */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Form styles */
+        .experience-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .experience-form input[type="text"],
+        .experience-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .experience-form textarea {
+            height: 200px; /* تحديد ارتفاع المربع بـ 200 بكسل */
+        }
+
+        .experience-form button {
+            background-color: #b94a34;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center; /* تحديد الموضع إلى الوسط */
+            transition: background-color 0.3s; /* تأثير انتقالي لتغيير لون الخلفية */
+        }
+
+        .experience-form button:hover {
+            background-color: #ba1010; /* تغيير لون الخلفية عند المرور بالفأرة */
+        }
+
+        /* Card styles */
+        .experience-card {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .experience-card h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .experience-card p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Back button styles */
+        .back-button {
+            text-align: right; /* تحديد الموضع إلى اليمين */
+            margin-top: -26px;
+        }
+
+        .back-button a {
+            background-color: #b94a34;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s; /* تأثير انتقالي لتغيير لون الخلفية */
+        }
+
+        .back-button a:hover {
+            background-color: #ba1010; /* تغيير لون الخلفية عند المرور بالفأرة */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blood Donors Experience</h1>
+
+        <!-- Experience form -->
+        <form class="experience-form" id="experience-form" action="/submit_experience" method="post">
+           
+            <input type="text" id="firstName" name="donor_name"  value="{{ session['first_name'] }} {{ session['middle_name'] }} {{ session['last_name'] }}" readonly>
+
+            <textarea name="experience" placeholder="Write your experience here..." required></textarea>
+            <button type="submit">Submit Experience</button>
+        </form>
+
+        <!-- Back button -->
+        <div class="back-button">
+            <a href="/home">Home</a>
+        </div>
+
+        <!-- Display donor experiences -->
+        {% for experience, donor_name in experiences %}
+            <div class="experience-card">
+                <h3>Donor Name: {{ donor_name }}</h3>
+                <p>{{ experience }}</p>
+            </div>
+        {% endfor %}
+
+       
+    </div>
+</body>
+</html>

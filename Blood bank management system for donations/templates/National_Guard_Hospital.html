@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital Information - NGHA</title>
+<style>
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+
+    .btn {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            float: right;
+            text-align: center; /* تحديد موضع الزر إلى الوسط */
+            width: 300px; /* تحديد عرض الزر */
+            height: 30px; /* تحديد ارتفاع الزر */
+            margin-top: 15px; /* تحريك الزر إلى الأسفل بمقدار 10 بكسل */
+
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1> مستشفى الحرس الوطني بالرياض</h1>
+    <form action="/submit_hospital_info" method="post">
+        <div>
+            <label for="Hospital_ID">Hospital ID:</label>
+            <input type="text" id="Hospital_ID" name="Hospital_ID" value="NGHA001" readonly>
+        </div>
+        <div>
+            <label for="Hos_Name">Hospital Name:</label>
+            <input type="text" id="Hos_Name" name="Hos_Name" value="مستشفى الحرس الوطني بالرياض" readonly>
+        </div>
+        <div>
+            <label for="Phone">Phone:</label>
+            <input type="tel" id="Phone" name="Phone" value="+9660118011111" readonly>
+        </div>
+    
+            <div>
+                <label for="Address">Address:</label>
+                <input type="text" id="Address" name="Address" value="https://maps.app.goo.gl/1ziSthbrZhgWHr8y6?g_st=ic" readonly>
+                <button onclick="redirectToGoogleMaps()">View on Google Maps</button>
+            </div>
+            
+        <div>
+            <label for="Email">Email:</label>
+            <a href="mailto:intrec@ngha.med.sa">intrec@ngha.med.sa</a>
+        </div>
+        <div>
+
+        <a href="/home" class="btn">Go to Home Page</a>
+
+    </form>
+    
+    
+
+
+
+    <script>
+        function redirectToGoogleMaps() {
+            var address = document.getElementById('Address').value;
+            window.open(address, '_blank'); // فتح الرابط في نافذة جديدة
+        }
+        </script>
+
+        
+</body>
+</html>

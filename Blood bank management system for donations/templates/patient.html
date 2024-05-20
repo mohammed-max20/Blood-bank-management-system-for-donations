@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Information Registration </title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='patient_styles.css') }}">
+<body>
+  
+  <form action="/patientform" method="POST">
+    <h2>Create a case for patient</h2>
+
+   
+    <input type="hidden" id="id" name="id" value="{{ session['id_number'] }}">
+
+
+
+
+    <input type="hidden" id="firstName" name="firstName" value="{{ session['first_name'] }}" required>
+
+
+   
+    <input type="hidden" id="middleName" name="middleName" value="{{ session['middle_name'] }}" required>
+
+
+   
+    <input type="hidden" id="lastName" name="lastName" value="{{ session['last_name'] }}" required>
+
+
+    
+    <input type="hidden" id="phone" name="phone" value="{{ session['phone'] }}" required>
+
+
+
+   
+   <input type="hidden" id="email" name="email" value="{{ session['email'] }}" required>
+
+   
+   <input type="hidden" id="birthDate" name="birthDate" value="{{ session['birth_date'] }}" required>
+
+
+   
+    <br>
+   
+    <select id="gender" name="gender" required>
+      <option value="{{ session['gender'] }}">{{ session['gender'] }}</option>
+    </select>
+
+    
+    <input type="text" id="city" name="city" value="{{ session['city'] }}" required>
+
+
+    <label for="street">Street Name:</label>
+    <input type="text" id="street" name="street" required>
+
+    <label for="neighborhood">Neighborhood:</label>
+    <input type="text" id="neighborhood" name="neighborhood" required>
+
+    <label for="hospital">Hospital Name:</label>
+    <select id="hospital" name="hospital" required>
+      <option value="National Guard Hospital"> National Guard Hospital / مستشفى الحرس الوطني</option>
+      <option value="King khalid University Hospital"> King khalid University Hospital / مستشفى الملك خالد الجامعي</option>
+    </select><br>
+
+    
+    <label id="bloodType-label" for="bloodType">Blood Type:</label>
+<select id="bloodType" name="bloodType" required>
+  <option value="{{ session['blood_type'] }}">{{ session['blood_type'] }}</option>
+</select>
+
+
+    <label for="notes">Notes:</label><br>
+    <textarea id="notes" name="notes"></textarea><br><br>
+  
+    <label for="appointmentDatetime">Appointment Date and Time:</label><br>
+    <input type="datetime-local" id="appointmentDatetime" name="appointmentDatetime" required>
+    {% if warning_message %}
+    <div style="color: red; ">
+        {{ warning_message }}
+    </div>
+{% endif %}
+    <button type="submit">Create</button>
+  </form>
+
+  <script>
+    // Get the input element
+    var appointmentDatetimeInput = document.getElementById('appointmentDatetime');
+    
+    // Set the minimum date to tomorrow
+    var today = new Date();
+    var tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var minDate = tomorrow.toISOString().slice(0, 16); // يجب قص التوقيت من السلسلة ليتم تحديد اليوم فقط
+    appointmentDatetimeInput.setAttribute('min', minDate);
+  
+    // Add event listener to disable selection of Friday and Saturday
+    appointmentDatetimeInput.addEventListener('input', function() {
+        var selectedDate = new Date(appointmentDatetimeInput.value);
+        var today = new Date();
+        
+        // Check if the selected date is today or before today
+        if (selectedDate <= today) {
+            // Disable the input
+            appointmentDatetimeInput.value = '';
+            appointmentDatetimeInput.setCustomValidity('You cannot book an appointment for today or before today.');
+        } else {
+            // Enable the input
+            appointmentDatetimeInput.setCustomValidity('');
+        }
+    });
+  </script>
+
+
+
+<script>
+  // Get the input element
+  var appointmentDatetimeInput = document.getElementById('appointmentDatetime');
+
+  // Set the minimum and maximum time
+  appointmentDatetimeInput.setAttribute('min', '07:00');
+  appointmentDatetimeInput.setAttribute('max', '15:30');
+
+  // Add event listener to disable selection of Friday and Saturday
+  appointmentDatetimeInput.addEventListener('input', function() {
+      var selectedDate = new Date(appointmentDatetimeInput.value);
+      var selectedTime = selectedDate.getHours() * 60 + selectedDate.getMinutes();
+
+      // Calculate the time in minutes for 7:00 AM and 3:30 PM
+      var startTime = 7 * 60;
+      var endTime = 15 * 60 + 30;
+
+      // Check if the selected time is within the allowed range
+      if (selectedTime < startTime || selectedTime > endTime) {
+          // Disable the input
+          appointmentDatetimeInput.value = '';
+          appointmentDatetimeInput.setCustomValidity('Appointments are only available from 7:00 AM to 3:30 PM. Closed at Friday and Saturday.');
+      } else {
+          // Enable the input
+          appointmentDatetimeInput.setCustomValidity('');
+      }
+  });
+</script>
+
+
+  <script>
+    document.getElementById("birthDate").addEventListener("change", function() {
+      var birthDate = new Date(this.value);
+      var today = new Date();
+      var age = today.getFullYear() - birthDate.getFullYear();
+      if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      document.getElementById("age").value = age;
+    });
+  </script>
+
+
+
+
+</body>
+</html>

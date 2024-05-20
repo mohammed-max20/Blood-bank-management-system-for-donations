@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register_styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .container {
+            max-width: 800px;
+           
+            margin: 50px auto;
+            padding: 30PX;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            text-align: center;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <style>
+        .container {
+    width: 35%; 
+    height: 85%;
+    margin: auto; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+form {
+    width: 100%; 
+    margin-bottom: 10px; 
+}
+form input,
+form select,
+form button {
+    width: 100%; 
+    margin-bottom: 10px; 
+}
+form label {
+    width: 100%; 
+}
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        
+        <form action="/register" method="POST" onsubmit="return validatePhoneNumber()">
+            <input type="text" name="id_number" placeholder="ID Number" required maxlength="10" oninput="checkLength(this); validateInput(this)">
+            <input type="text" name="username" placeholder="Username" required> 
+            <input type="text" name="f_name" placeholder="First Name" required>
+            <input type="text" name="m_name" placeholder="Second Name" required>
+            <input type="text" name="l_name" placeholder="Last Name" required>
+            <div style="display: flex; align-items: flex-end;">
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password"  required onkeyup="checkPasswordMatch()">
+        
+                <!-- زر عين لتبديل رؤية كلمة المرور -->
+                <i class="fa fa-eye" onclick="togglePasswordVisibility()" style="cursor: pointer; margin-left: 10px; height: 35px;"></i>
+            </div>
+            
+            
+            <div id="password_message"></div>
+        
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="nationality" placeholder="Nationality" required>
+            <input type="text" name="city" placeholder="city" required>
+            <input type="text" id="phone_number" name="phone_number" placeholder="05XXXXXXXX (Phone number)" maxlength="10" required oninput="validatePhoneNumber(this)">
+           <label for="date">Birth Date:</label>
+           <input type="date" id="birth_date" name="birth_date" required>
+           <div id="age_message"></div>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <label for="blood_type">Blood Type:</label>
+            <select id="blood_type" name="blood_type">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+
+            <!-- Add security question field -->
+            <label for="security_question">Security Question:</label>
+            <select id="security_question" name="security_question" required>
+                <option value="">Select Security Question</option>
+                <option value="What is your favorite food?">What is your favorite food?</option>
+                <option value="What is your favorite animal?">What is your favorite animal?</option>
+                <!-- يمكننا اضافة اسئلة أمنية أكثر -->
+            </select>
+
+            <label for="security_answer">Security Answer:</label>
+            <input type="text" id="security_answer" name="security_answer" required>
+
+
+
+            <button type="submit">Register</button>
+        <p>Already have an account? <a href="{{ url_for('show_login_form') }}">Click here</a></p> 
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // Function to validate input length
+    function checkLength(input) {
+        if (input.value.length < 10) {
+            input.setCustomValidity('The ID number must be 10 digits long.');
+        } else {
+            input.setCustomValidity('');
+        }
+    }
+
+    // Function to validate input contains only digits
+    function validateInput(input) {
+        // Define regular expression to check if value contains only digits
+        var regex = /^[0-9]*$/;
+
+        // Check if the value matches the regular expression
+        if (!regex.test(input.value)) {
+            // If not, remove any non-digit characters
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+    }
+</script>
+
+
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementsByName("password")[0];
+        var confirmPasswordInput = document.getElementsByName("confirm_password")[0];
+        
+        // تحديد نوع الحقل بناءً على حالة كلمة المرور الأولى
+        var type = passwordInput.type === "password" ? "text" : "password";
+
+        // تغيير نوع الحقل لكلمة المرور وتأكيد كلمة المرور
+        passwordInput.type = type;
+        confirmPasswordInput.type = type;
+    }
+</script>
+    
+
+
+
+<script>
+function checkPasswordMatch() {
+    var password = document.getElementsByName("password")[0].value;
+    var confirmPassword = document.getElementsByName("confirm_password")[0].value;
+    var message = document.getElementById("password_message");
+
+    // التحقق من أن رمز السر يحتوي على الشروط المطلوبة
+    var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+    if (password !== "" && confirmPassword !== "") {
+        if (!passwordRegex.test(password)) {
+            message.style.color = "red";
+            message.textContent = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and at least one digit.";
+        } else if (password !== confirmPassword) {
+            message.style.color = "red";
+            message.textContent = "Passwords do not match!";
+        } else {
+            message.style.color = "green";
+            message.textContent = "Passwords match!";
+        }
+    } else {
+        message.textContent = "";
+    }
+}
+</script>
+
+
+
+    
+
+<script>
+    function validatePhoneNumber(input) {
+        // تحديد التعبير المنتظم للتحقق من أن القيمة تحتوي على أرقام فقط
+        var regex = /^[0-9]*$/;
+
+        // التحقق مما إذا كانت القيمة تطابق التعبير المنتظم
+        if (!regex.test(input.value)) {
+            input.value = input.value.replace(/[^0-9]/g, ''); // إزالة أي حرف غير رقمي
+        }
+
+        // التحقق من طول رقم الهاتف وبدايته بـ "05"
+        if (input.value.length !== 10 || !input.value.startsWith("05")) {
+            input.setCustomValidity('The phone number must be 10 digits long and start with "05".');
+        } else {
+            input.setCustomValidity('');
+        }
+    }
+</script>
+
+
+
+
+<script>
+    // Function to calculate age based on birth date
+    function calculateAge(birthDate) {
+        var today = new Date();
+        var birthDate = new Date(birthDate);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    // Function to validate birth date
+    function validateBirthDate() {
+        var birthDateInput = document.getElementById("birth_date");
+        var ageMessage = document.getElementById("age_message");
+
+        var age = calculateAge(birthDateInput.value);
+
+        if (age < 18) {
+            ageMessage.style.color = "red";
+            ageMessage.textContent = "You must be at least 18 years old to register.";
+            return false;
+        } else {
+            ageMessage.textContent = "";
+            return true;
+        }
+    }
+
+    // Event listener to validate birth date on form submission
+    document.querySelector("form").addEventListener("submit", function(event) {
+        if (!validateBirthDate()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+</script>
+
+</body>
+</html>

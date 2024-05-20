@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn,
+        .back-btn {
+            background-color: #dc3545;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-container button {
+            flex: 1;
+            margin: 0 5px;
+            padding: 10px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-container button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Profile</h1>
+        <!-- edit_profile.html -->
+        <form action="/edit_profile" method="post">
+            <input type="hidden" name="id_number" value="{{ user[0] }}">
+    <!-- Display other user information fields -->
+    <label for="f_name">First Name:</label>
+<input type="text" id="f_name" name="f_name" value="{{ user[11] }}"><br><br>
+
+<label for="l_name">Last Name:</label>
+<input type="text" id="l_name" name="l_name" value="{{ user[13] }}"><br><br>
+
+<label for="phone_number">Phone Number:</label>
+<input type="text" id="phone_number" name="phone_number" value="{{ user[7] }}"><br><br>
+
+<label for="email">Email:</label>
+<input type="text" id="email" name="email" value="{{ user[3] }}"><br><br>
+
+<label for="city">City:</label>
+<input type="text" id="city" name="city" value="{{ user[6] }}"><br><br>
+
+    <!-- Add other fields as needed -->
+    <div class="btn-container">
+        <button type="submit" onclick="confirmChanges(event)">Save Changes</button>
+        <button type="submit" class="delete-btn" formaction="/delete_account" formmethod="post" onclick="return confirm('Are you sure you want to delete this Account?');">Delete Account</button>
+        <button type="submit" class="back-btn" formaction="/home" formmethod="get">Back to Home</button>
+    </div>
+
+</form>
+
+
+ 
+
+<!-- JavaScript for confirmation dialog -->
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this Account?");
+    }
+</script>
+
+
+<script>
+    function confirmChanges(event) {
+        // عرض مربع الحوار وحفظ قيمة الاستجابة
+        var confirmation = confirm("Are you sure you want to save your changes?");
+
+        // التحقق مما إذا كان المستخدم قد قبل التغييرات أو قام برفضها
+        if (confirmation) {
+            // إذا قبل المستخدم، قم بإرسال النموذج لحفظ التغييرات
+            document.querySelector('form').submit();
+        } else {
+            // إذا رفض المستخدم، قم بمنع إرسال النموذج والبقاء في نفس الصفحة
+            event.preventDefault();
+            // يمكنك إضافة سلوك إضافي هنا إذا لزم الأمر، مثل تحديث الصفحة أو عرض رسالة أخرى
+        }
+    }
+</script>
+
+</body>
+</html>

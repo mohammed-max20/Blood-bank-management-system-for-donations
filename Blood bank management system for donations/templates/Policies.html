@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>terms of use and privacy policy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Policies_styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <main>
+       
+    </main>
+        
+   
+
+   
+    <div class="content">
+        <br><br>
+        <h2>1-Registration and Accounts  </h2>
+        
+        <p>Users must provide accurate and truthful information when registering.</p>
+        
+        <p>Users must maintain the confidentiality of their account information and not share it with others.</p>
+        
+        <h2>2-Acceptable Behavior:</h2>
+        
+        <p>Users must act respectfully and politely in their interactions with others.</p>
+      
+        <p>The application must not be used for any illegal or unethical purposes</p>
+        
+        <h2>3-Content:</h2>
+        
+        <p>Users must not post content that violates the rights of others or is abusive or promotes hatred. </p>
+       
+        <p>Users must not post false or misleading information. </p>
+        
+        <h2>4-Blood Donation:</h2>
+        
+        <p>Blood donors must comply with the medical and health conditions for blood donation.        </p>
+       
+        <p>Users must adhere to the schedules and instructions provided for blood donation   </p>
+        
+        <h2>5-Disclaimer and Warranty:        </h2>
+        
+        <p>The application is provided "as is" without any express or implied warranties.        </p>
+        
+        <p>The application is not liable for any direct or indirect damages resulting from the use of the application.        </p>
+        </div>
+   
+        <footer class="footer" >
+            <div class="waves">
+                <div class="wave" id="wave1"></div>
+                <div class="wave" id="wave2"></div>
+                <div class="wave" id="wave3"></div>
+                <div class="wave" id="wave4"></div>
+            </div>
+            <div class="footer-info contact-info">
+                <h2>Contact Info</h2>
+                <p><i class="fa fa-map-marker" onclick="openHospitalLocation()" style="cursor: pointer;"></i> <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">Riyadh, KSA</a></p>
+            <p><a href="tel:+966552904804"><i class="fa fa-phone"></i></a><a href="tel:+966552904804">+966 552904804</a></p>
+            <p><a href="tel:+966112394839"><i class="fa fa-phone"></i></a><a href="tel:+966112394839">0112394839</a></p>
+            <a href="mailto:easyblood2024@gmail.com"><i class="fa fa-envelope"></i>easyblood2024@gmail.com</a>
+            </div>
+    
+            <div class="amjj-container amjj-padding-64" id="contact">
+                <h2> Info about</h2>
+                <p><a href="https://www.moh.gov.sa/Ministry/About/Pages/ContactUS.aspx" target="_blank" style="color: white; text-decoration: none; display: inline;">Ministry of Health portal</a></p>
+                <a href="{{ url_for('policies') }}" style="text-decoration: none; color: white;">Usage policies</a>
+            </div>
+    
+            <div class="footer-info like-us">
+                <h2>Like Us</h2>
+                <a href="https://api.whatsapp.com/send?phone=966552904804" target="_blank"><i class="RAM-xlarge fa fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/easyblood2024/" target="_blank"><i class="RAM-xlarge fa fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61558652523558" target="_blank"><i class="RAM-xlarge fa fa-facebook-official"></i></a>
+            <a href="https://twitter.com/easyblood2024" target="_blank"><i class="RAM-xlarge fa fa-twitter"></i></a>
+            </div>
+            
+        </footer>
+
+        
+<script>
+    function openHospitalLocation() {
+        var url = 'https://www.google.com/maps/search/?api=1&query=24.7136,46.6753'; 
+        window.open(url, '_blank');
+    }
+</script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    const socialIcons = document.querySelectorAll('.footer .fa');
+
+    socialIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+            const iconType = icon.classList[2]; 
+            let url = '';
+
+            switch (iconType) {
+                case 'fa-whatsapp':
+                    url = 'https://api.whatsapp.com/send?phone=966552904804'; 
+                    break;
+                case 'fa-instagram':
+                    url = 'https://www.instagram.com/easyblood2024/'; 
+                    break;
+                case 'fa-twitter':
+                    url = 'https://twitter.com/easyblood2024'; 
+                    break;
+                case 'fa-facebook-official':
+                    url = 'https://www.facebook.com/profile.php?id=61558652523558'; 
+                    break;
+                
+            }
+
+            window.open(url, '_blank'); 
+        });
+    });
+});
+
+</script>
+
+
+</body>
+</html>
+

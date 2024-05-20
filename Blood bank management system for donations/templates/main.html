@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_styles.css') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>Welcome to EasyBlood</h1>
+
+            <!--<h1>Welcome to Blood donation</h1>-->
+
+            <nav>
+                <a href="{{ url_for('show_login_form', lang=selectedLang) }}" >Sign in</a>
+                <a href="{{ url_for('show_register_form', lang=selectedLang) }}" >Sign up</a>
+                <a href="{{ url_for('blood_type', lang=selectedLang) }}" >blood types</a>
+                <a href="#contact" >Contact</a>
+            </nav> 
+            <p>Your life-saving journey starts here.</p>
+            <br>                
+        <a href="https://www.moh.gov.sa/awarenessplateform/VariousTopics/Pages/BloodDonation.aspx" class="cta-button">Learn More</a><!--/*اضفتهم اليوم /18/3 -->
+    
+        <div class="Services">
+        </div>
+        
+        </header>
+    </main>
+
+
+            <section class="blood">
+            <h2>blood donation</h2>
+            <p>It is a voluntary medical procedure in which blood or one of its 
+                components is transferred from a healthy person 
+                to a sick person in need of blood. This procedure 
+                is needed by millions of people every year; It is
+                used during surgery, accidents, or some diseases
+                that require the transfusion of some blood components.</p>
+            </section>
+
+
+            <section class="blood2">
+                <h2>The amount of blood donated</h2>
+                <p>An adult in good health can donate approximately (450-500 ml) of his blood 
+                    without any fears or risks to his health. He can donate every two months,
+                     so that the number of times he donates does not exceed 5 times a year.</p>
+                </section>
+
+
+           
+                <section class="services1">
+                    <img src="/static/blood-types.png" alt="Blood Types">
+            </section>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+    <section class="about">
+        <h2>About Us</h2>
+        <p>We are a platform to facilitate and manage blood donation operations so that it is easy for the donor to donate and for the patient to donate to him, and to make the platform easy to use such as creating an account, logging in, creating a case account for the patient, and creating a donation case, and we provide the service of requesting a blood donation car that comes to you, We provide a lot of valuable information about blood donation and other things.</p>
+    </section>
+
+    <footer class="footer" >
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+        <div class="footer-info contact-info">
+            <h2>Contact Info</h2>
+            <p><i class="fa fa-map-marker" onclick="openHospitalLocation()" style="cursor: pointer;"></i> <a href="https://www.google.com/maps/search/?api=1&query=24.7136,46.6753" target="_blank">Riyadh, KSA</a></p>
+            <p><a href="tel:+966552904804"><i class="fa fa-phone"></i></a><a href="tel:+966552904804">+966 552904804</a></p>
+            <p><a href="tel:+966112394839"><i class="fa fa-phone"></i></a><a href="tel:+966112394839">0112394839</a></p>
+            <a href="mailto:easyblood2024@gmail.com"><i class="fa fa-envelope"></i>easyblood2024@gmail.com</a>
+        </div>
+
+        <div class="amjj-container amjj-padding-64" id="contact">
+            <h2> Info about</h2>
+            <p><a href="https://www.moh.gov.sa/Ministry/About/Pages/ContactUS.aspx" target="_blank" style="color: white; text-decoration: none; display: inline;">Ministry of Health portal</a></p>
+            <a href="{{ url_for('policies') }}" style="text-decoration: none; color: white;">Usage policies</a>
+        </div>
+
+        <div class="footer-info like-us">
+            <h2>Like Us</h2>
+            <a href="https://api.whatsapp.com/send?phone=966552904804" target="_blank"><i class="RAM-xlarge fa fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/easyblood2024/" target="_blank"><i class="RAM-xlarge fa fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61558652523558" target="_blank"><i class="RAM-xlarge fa fa-facebook-official"></i></a>
+            <a href="https://twitter.com/easyblood2024" target="_blank"><i class="RAM-xlarge fa fa-twitter"></i></a>
+          <!--  <i class="RAM-xlarge fa fa-linkedin"></i>-->
+        </div>
+        
+    </footer>
+
+
+    <script>
+        function openHospitalLocation() {
+            var url = 'https://www.google.com/maps/search/?api=1&query=24.7136,46.6753'; 
+            window.open(url, '_blank');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const socialIcons = document.querySelectorAll('.footer .fa');
+
+            socialIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const iconType = icon.classList[2]; 
+                    let url = '';
+
+                    switch (iconType) {
+                        case 'fa-whatsapp':
+                            url = 'https://api.whatsapp.com/send?phone=966552904804'; 
+                            break;
+                        case 'fa-instagram':
+                            url = 'https://www.instagram.com/easyblood2024/'; 
+                            break;
+                        case 'fa-twitter':
+                            url = 'https://twitter.com/easyblood2024'; 
+                            break;
+                        case 'fa-facebook-official':
+                            url = 'https://www.facebook.com/profile.php?id=61558652523558'; 
+                            break;
+                        
+                    }
+
+                    window.open(url, '_blank'); 
+                });
+            });
+        });
+    </script>
+</body>
+</html>
